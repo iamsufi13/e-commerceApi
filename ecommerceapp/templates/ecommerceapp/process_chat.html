@@ -1,0 +1,20 @@
+<!-- ecommerceapp/templates/ecommerceapp/process_chat.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Process Chat</title>
+</head>
+<body>
+    <h1>Process Chat</h1>
+    <form action="{% url 'process_chat' %}" method="post">
+        {% csrf_token %}
+        <label for="cloth_type">Cloth Type:</label>
+        <input type="text" id="cloth_type" name="cloth_type"><br><br>
+        <label for="cloth_color">Cloth Color:</label>
+        <input type="text" id="cloth_color" name="cloth_color"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,7 @@
+Django==3.2.5
+djangorestframework==3.12.4
+pillow==8.2.0
+rembg==2.0.30
+colorthief==0.2.1
+webcolors==1.11.1
+openai==0.6.0

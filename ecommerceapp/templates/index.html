@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload an Image</title>
+    <style>
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .image-item {
+            margin: 10px;
+        }
+        .image-item img {
+            max-width: 150px;
+            max-height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload an Image</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="image">Image:</label>
+        <input type="file" name="image" id="image" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if processed_images %}
+        <h2>Processed Images</h2>
+        <div class="image-container">
+            {% for image in processed_images %}
+                <div class="image-item">
+                    <h3>{{ image.filename }}</h3>
+                    <img src="{{ image.url }}" alt="{{ image.filename }}">
+                    <p><a href="{{ image.url }}" download="{{ image.filename }}">Download</a></p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>

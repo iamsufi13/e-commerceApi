@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Result</title>
+</head>
+<body>
+    <h1>Chat Result</h1>
+    <p id="response">{{ response }}</p>
+    <button onclick="copyToClipboard()">Copy to Clipboard</button>
+    <a href="{% url 'chat' %}">Back to Chat</a>
+
+    <script>
+        function copyToClipboard() {
+            var textToCopy = document.getElementById("response").innerText;
+            var tempInput = document.createElement("textarea");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Copied to clipboard!");
+        }
+    </script>
+</body>
+</html>

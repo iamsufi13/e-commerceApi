@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing</title>
+    <style>
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            max-width: 300px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .image-container a {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload an Image</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if file_info %}
+        <h2>Processed Images</h2>
+        {% for file_name, file_url in file_info %}
+            <div class="image-container">
+                <img src="{{ thumbnail_url }}" alt="Processed Image">
+                <a href="{{ file_url }}" download="{{ file_name }}">Download {{ file_name }}</a>
+            </div>
+        {% endfor %}
+        <p>Dominant Color: {{ dominant_color }}</p>
+        <p>Closest Named Color: {{ closest_named_color }}</p>
+    {% endif %}
+</body>
+</html>
