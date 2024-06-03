@@ -14,17 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from ecommerceapp.views import *
-# from ecommerceapp import chat_view
+from django.conf import settings
+from django.conf.urls.static import static
+from ecommerceapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('ecommerceapp.urls')),
-    # path('chat/', chat_view, name='chat'),
+    path('api/upload-image/', views.upload_image, name='upload_image'),
+    path('api/process-chat/', views.process_chat, name='process_chat'),
+    path('', include('ecommerceapp.urls')),  # Include URLs from the ecommerceapp app
+    # path('chat/', views.chat_view, name='chat'),  # Uncomment if you want to use this route
 ]
 
 if settings.DEBUG:

@@ -70,7 +70,7 @@ from PIL import Image as PILImage
 import openai
 from colorthief import ColorThief
 
-openai.api_key = 'Api Key Here'
+openai.api_key = "API KEY HERE"
 
 def chat_with_gpt(message):
     response = openai.Completion.create(
@@ -85,26 +85,21 @@ def chat_with_gpt(message):
 
 @api_view(['POST'])
 def upload_image(request):
-    if 'image' not in request.FILES:
-        return Response({'error': 'No image uploaded'}, status=status.HTTP_400_BAD_REQUEST)
-    
-    image = request.FILES['image']
-    processed_images, dominant_color, closest_color_name = process_image(image)
-    
-    return Response({
-        'processed_images': processed_images,
-        'dominant_color': dominant_color,
-        'closest_color_name': closest_color_name
-    })
+    if 'image' in request.FILES:
+        image = request.FILES['image']
+        processed_images, dominant_color, closest_color_name = process_image(image)
+        return Response({
+            'processed_images': processed_images,
+            'dominant_color': dominant_color,
+            'closest_color_name': closest_color_name
+        })
+    return Response({'error': 'No image provided'}, status=400)
+
 
 @api_view(['POST'])
 def process_chat(request):
     cloth_type = request.data.get('cloth_type')
     cloth_color = request.data.get('cloth_color')
-    if not cloth_type or not cloth_color:
-        return Response({'error': 'cloth_type and cloth_color are required'}, status=status.HTTP_400_BAD_REQUEST)
-    
     prompt = f"You: give a 4-5 line description for {cloth_type} of {cloth_color} Color"
     response = chat_with_gpt(prompt)
-    
     return Response({'response': response})
